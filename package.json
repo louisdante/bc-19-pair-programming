@@ -1,35 +1,38 @@
 {
-    "name": "codepair",
-    "version": "1.0.0",
-    "description": "pair programming app",
-    "main": "app.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/louisdante/codepair.git"
-    },
-    "author": "louisdante",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/louisdante/codepair/issues"
-    },
-    "homepage": "https://github.com/louisdante/codepair#readme",
-    "dependencies": {
-        "bcryptjs": "*",
-        "body-parser": "*",
-        "connect-flash": "*",
-        "cookie-parser": "*",
-        "express": "^4.14.0",
-        "express-messages": "*",
-        "express-session": "*",
-        "express-validator": "*",
-        "method-override": "^2.3.6",
-        "mongodb": "*",
-        "mongoose": "*",
-        "passport": "*",
-        "passport-http": "*",
-        "passport-local": "*"
-    }
+  "name": "codepair",
+  "version": "1.0.0",
+  "description": "pair programming app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louisdante/codepair.git"
+  },
+  "author": "louisdante",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/louisdante/codepair/issues"
+  },
+  "homepage": "https://github.com/louisdante/codepair#readme",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-messages": "*",
+    "express-session": "*",
+    "firebase": "*",
+    "method-override": "^2.3.6",
+    "morgan": "*",
+    "passport": "*",
+    "passport-facebook": "*",
+    "passport-google": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "passport-twitter": "*",
+    "q": "*"
+  }
 }
