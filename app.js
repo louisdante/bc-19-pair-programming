@@ -10,6 +10,7 @@ var express = require('express'),
     TwitterStrategy = require('passport-twitter'),
     GoogleStrategy = require('passport-google'),
     FacebookStrategy = require('passport-facebook');
+firebase = require("firebase");
 
 // var config = require('./config.js'), //config file contains all tokens and other private info
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
@@ -19,17 +20,17 @@ var express = require('express'),
 //--------------EXPRESS----------------
 var app = express();
 // Configure Express
-app.use(logger('combined'));
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(methodOverride('X-HTTP-Method-Override'));
+// app.use(logger('combined'));
+// app.use(cookieParser());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(session({ secret: 'supernova', saveUninitialized: true, resave: true }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
-// Session-persisted message middleware
+// // Session-persisted message middleware
 app.use(function(req, res, next) {
     var err = req.session.error,
         msg = req.session.notice,
@@ -54,8 +55,39 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 //---------------ROUTES----------------
+//this holds our routes
+//displays our homepage
+app.get('/', function(req, res) {
+    console.log('got here???')
+    res.render('home', { user: req.user });
+});
 
-//This section will hold our Routes
+//displays our signup page
+app.get('/signin', function(req, res) {
+    res.render('signin');
+});
+
+//sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
+app.post('/local-reg', passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect: '/signin'
+}));
+
+//sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
+app.post('/login', passport.authenticate('local-signin', {
+    successRedirect: '/',
+    failureRedirect: '/signin'
+}));
+
+//logs user out of site, deleting them from the session, and returns to homepage
+app.get('/logout', function(req, res) {
+    var name = req.user.username;
+    console.log("LOGGIN OUT " + name);
+    req.logout();
+    res.redirect('/');
+    req.session.notice = "You have successfully been logged out " + name + "!";
+});
+
 
 //------------------PORT--------------------
 var port = process.env.PORT || 3000; //select your port or let it pull from your .env file

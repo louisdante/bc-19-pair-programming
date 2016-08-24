@@ -31,10 +31,36 @@
           <span class="icon-bar"></span>
         </button>
       </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
             <li>
               {{#if user}}
                 <p class="navbar-text">
@@ -51,9 +77,11 @@
               {{else}}
                 <a href="/signin">Sign In</a>
                 </li>
-              {{/if}}
+              {{/if}}</li>
           </ul>
-        </div><!-- /.navbar-collapse -->
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
       </div><!-- /.container-fluid -->
     </nav>
 
@@ -81,5 +109,77 @@
 
     <!-- Latest compiled and minified JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <!--<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js">
+  function authCallBk(authData) {
+            if (authData) {
+            console.log("User " + authData.uid + " is logged in with " + authData.provider);
+            } else {
+                console.log("User is logged out");
+            }
+    }
+    // Register the callback to be fired every time auth state changes
+    var ref = new Firebase("http://pair-programming-cea9c.firebaseio.com/");
+
+    // Create a callback to handle the result of the authentication
+    $("#login-btn").on('click', function() 
+{
+        var email = $("#login-email").val();
+        var password = $("#login-password").val();
+        firebaseref.authWithPassword({
+            email: email,
+            password: password
+        }, 
+        function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+            }
+        });
+});
+
+    ref.authWithOAuthPopup("facebook", authHandler);
+    ref.authWithOAuthRedirect("gmail", authHandler);
+  </script>-->
+  
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
+    authDomain: "pair-programming-cea9c.firebaseapp.com",
+    databaseURL: "https://pair-programming-cea9c.firebaseio.com",
+    storageBucket: "pair-programming-cea9c.appspot.com",
+  };
+  firebase.initializeApp(config);
+  var db = firebase.database();
+  var ref = db.ref('/');
+  //console.log(ref.push('hello').key); 
+
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+  } else {
+    // No user is signed in.
+  }
+});
+  $("#login-btn").on('click', function() 
+{
+        var email = $("#login-email").val();
+        var password = $("#login-password").val();
+        firebaseref.authWithPassword({
+            email: email,
+            password: password
+        }, 
+        function(error, authData) {
+            if (error) {
+                console.log("Login Failed!", error);
+            } else {
+                console.log("Authenticated successfully with payload:", authData);
+            }
+        });
+});
+</script>
+    
 </body>
 </html>
