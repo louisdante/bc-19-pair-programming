@@ -65,7 +65,7 @@
               {{#if user}}
                 <p class="navbar-text">
                   <strong>Hi,</strong>
-                  <img src="{{user.avatar}}" width="20" height="20">
+                  <img src="{{user.profilepics}}" width="20" height="20">
                   {{user.username}}
                 </p>
                 </li>
@@ -109,39 +109,6 @@
 
     <!-- Latest compiled and minified JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <!--<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js">
-  function authCallBk(authData) {
-            if (authData) {
-            console.log("User " + authData.uid + " is logged in with " + authData.provider);
-            } else {
-                console.log("User is logged out");
-            }
-    }
-    // Register the callback to be fired every time auth state changes
-    var ref = new Firebase("http://pair-programming-cea9c.firebaseio.com/");
-
-    // Create a callback to handle the result of the authentication
-    $("#login-btn").on('click', function() 
-{
-        var email = $("#login-email").val();
-        var password = $("#login-password").val();
-        firebaseref.authWithPassword({
-            email: email,
-            password: password
-        }, 
-        function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-            }
-        });
-});
-
-    ref.authWithOAuthPopup("facebook", authHandler);
-    ref.authWithOAuthRedirect("gmail", authHandler);
-  </script>-->
-  
 <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -163,22 +130,62 @@
     // No user is signed in.
   }
 });
-  $("#login-btn").on('click', function() 
+  $("#local-sign-in").on('submit', function(e) 
 {
-        var email = $("#login-email").val();
-        var password = $("#login-password").val();
-        firebaseref.authWithPassword({
-            email: email,
-            password: password
-        }, 
-        function(error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-            } else {
-                console.log("Authenticated successfully with payload:", authData);
-            }
+        e.preventDefault();
+        var email = $("input[name='username']").val();
+        var password = $("input[name='password']").val(); 
+        console.log(email, password);
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function(userData){
+            var user = userData.email;
+            console.log(user);
+        }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ...
         });
-});
+        
+    });
+     $("#local-reg").on('submit', function(e) 
+    {
+        e.preventDefault();
+        var email = $("input[name='signupEmail']").val();
+        var password = $("input[name='signupPassword']").val(); 
+        console.log(email, password);
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(function(userData){
+            var user = userData.email;
+            console.log(user);
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            
+                switch (error.message) {
+                case "auth/email-already-in-use":
+                    console.log("The new user account cannot be created because the email is already in use.");
+                    break;
+                case "auth/invalid-email":
+                    console.log("The specified email is not a valid email.");
+                    break;
+                default:
+                    console.log("Error creating user:", error);
+                }
+            // ...
+        });
+    });
+     $("#local-reg").on('submit', function(e) 
+    {
+        e.preventDefault();
+        firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+
+        }, function(error) {
+        // An error happened.
+        });
+    });
+
 </script>
     
 </body>
