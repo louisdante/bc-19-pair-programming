@@ -138,7 +138,9 @@
         console.log(email, password);
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(userData){
             var user = userData.email;
-            console.log(user);
+            console.log(user, 'fidfodfifi');
+            // sessionStorage.setItem('key', user);
+            location.href = '/app/' + user;
         }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
