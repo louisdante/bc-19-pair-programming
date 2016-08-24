@@ -28,8 +28,7 @@ var app = express();
 app.use(session({ secret: 'supernova', saveUninitialized: true, resave: true }));
 // app.use(passport.initialize());
 // app.use(passport.session());
-
-
+//  write4 s middleware te protectes te app route
 // // Session-persisted message middleware
 app.use(function(req, res, next) {
     var err = req.session.error,
@@ -67,17 +66,12 @@ app.get('/signin', function(req, res) {
     res.render('signin');
 });
 
-//sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
-app.post('/local-reg', passport.authenticate('local-signup', {
-    successRedirect: '/',
-    failureRedirect: '/signin'
-}));
-
-//sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
-app.post('/login', passport.authenticate('local-signin', {
-    successRedirect: '/',
-    failureRedirect: '/signin'
-}));
+//displays our app page
+app.get('/app/:email', function(req, res) {
+    session
+    console.log(req.params.email);
+    res.render('app');
+});
 
 //logs user out of site, deleting them from the session, and returns to homepage
 app.get('/logout', function(req, res) {
