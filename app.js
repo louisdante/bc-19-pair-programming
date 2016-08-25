@@ -21,11 +21,12 @@ firebase = require("firebase");
 var app = express();
 // Configure Express
 // app.use(logger('combined'));
-// app.use(cookieParser());
+//app.use(bodyParser());
+//app.use(cookieParser());
+app.use(session({ secret: 'supernova', saveUninitialized: true, resave: true }));
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 // app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({ secret: 'supernova', saveUninitialized: true, resave: true }));
 // app.use(passport.initialize());
 // app.use(passport.session());
 //  write4 s middleware te protectes te app route
@@ -67,10 +68,10 @@ app.get('/signin', function(req, res) {
 });
 
 //displays our app page
-app.get('/app/:email', function(req, res) {
-    session
+app.get('/home/:email', function(req, res) {
+    console.log(req.session.user);
     console.log(req.params.email);
-    res.render('app');
+    res.render('home');
 });
 
 //logs user out of site, deleting them from the session, and returns to homepage

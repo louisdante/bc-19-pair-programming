@@ -66,7 +66,7 @@
                 <p class="navbar-text">
                   <strong>Hi,</strong>
                   <img src="{{user.profilepics}}" width="20" height="20">
-                  {{user.username}}
+                  {{user}}
                 </p>
                 </li>
                 </ul>
@@ -140,7 +140,7 @@
             var user = userData.email;
             console.log(user, 'fidfodfifi');
             // sessionStorage.setItem('key', user);
-            location.href = '/app/' + user;
+           location.href = '/home/' + user;
         }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -150,6 +150,8 @@
         });
         
     });
+    
+    //handles signup
      $("#local-reg").on('submit', function(e) 
     {
         e.preventDefault();

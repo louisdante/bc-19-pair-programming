@@ -25,6 +25,7 @@
     "express-messages": "*",
     "express-session": "*",
     "firebase": "*",
+    "jsonwebtoken": "^7.1.9",
     "method-override": "^2.3.6",
     "morgan": "*",
     "passport": "*",
