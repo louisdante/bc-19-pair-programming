@@ -105,8 +105,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
@@ -138,10 +138,14 @@
         console.log(email, password);
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(userData){
             var email = userData.email;
-            console.log(user, 'fidfodfifi');
+            console.log(email, 'fidfodfifi');
             var user = email.split('@')[0];
-            // sessionStorage.setItem('key', user);
+            $.post( "/signin", { name: user, time: "2pm" }, function(){
+              console.log('succesful');
+            } );
+           
            location.href = '/home/' + user;
+           //console.log(obj);
         }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;

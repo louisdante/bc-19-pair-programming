@@ -58,6 +58,7 @@ app.set('view engine', 'handlebars');
 //this holds our routes
 //displays our homepage
 app.get('/', function(req, res) {
+    console.log(req.session.username, 'usrname session');
     console.log('got here???')
     res.render('home', { user: req.user });
 });
@@ -68,18 +69,15 @@ app.get('/signin', function(req, res) {
 });
 
 app.post('/signin', function(req, res) {
-    sess = req.session;
-    sess.email = req.bodyParser.username;
-    console.log(sess)
-    res.render('home');
+    req.session.username = req.body.name;
+    res.redirect('/');
 });
 
 //displays our app page
 app.get('/home/:email', function(req, res) {
     //console.log(req.session);
     //console.log(req.params.email);
-    sess = req.session;
-    console.log(sess.email);
+    //sess = req.session;
     var user = req.params.email;
     //console.log(req.session);
     //req
