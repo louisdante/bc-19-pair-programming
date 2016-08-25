@@ -55,10 +55,10 @@ app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 //---------------ROUTES----------------
-//this holds our routes
+
 //displays our homepage
 app.get('/', function(req, res) {
-    console.log(req.session.username, 'usrname session');
+    console.log(req.session.username, '');
     console.log('got here???')
     res.render('home', { user: req.user });
 });
@@ -68,6 +68,7 @@ app.get('/signin', function(req, res) {
     res.render('signin');
 });
 
+//post session information
 app.post('/signin', function(req, res) {
     req.session.username = req.body.name;
     res.redirect('/');
@@ -75,13 +76,15 @@ app.post('/signin', function(req, res) {
 
 //displays our app page
 app.get('/home/:email', function(req, res) {
-    //console.log(req.session);
-    //console.log(req.params.email);
-    //sess = req.session;
-    var user = req.params.email;
-    //console.log(req.session);
-    //req
-    //if ()
+    sess = req.session;
+    //var user = req.params.email;
+    console.log(sess.username);
+    var usrname = sess.username;
+    if (usrname) {
+
+    } else {
+        redirect('/signin');
+    }
     res.render('home');
 });
 
