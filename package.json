@@ -18,7 +18,7 @@
   "homepage": "https://github.com/louisdante/codepair#readme",
   "dependencies": {
     "bcryptjs": "*",
-    "body-parser": "*",
+    "body-parser": "^1.15.2",
     "cookie-parser": "*",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",

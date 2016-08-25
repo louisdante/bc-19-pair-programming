@@ -15,6 +15,69 @@
   </div>
 
 {{else}}
+   <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              {{#if user}}
+                <p class="navbar-text">
+                  <strong>Hi,</strong>
+                  <img src="{{user.profilepics}}" width="20" height="20">
+                  {{user}}
+                </p>
+                </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="/logout">Log Out</a>
+                  </li>
+              {{else}}
+                <a href="/signin">Sign In</a>
+                </li>
+              {{/if}}</li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
   <div class="jumbotron">
     <h1>Welcome to codepair</h1>
     <p>Sign in and start coding!</p>
@@ -26,9 +89,9 @@
     </p>
   </div>
   <div class="container">
-    <h1>Firebase Chat Application</h1>
+    <h1> Chat Area</h1>
  
-    <div class="panel panel-default">
+    <div class="panel panel-default col-md-4">
         <div class="panel-body"></div>
         <div class="panel-footer">
  
@@ -47,6 +110,73 @@
         </div>
     </div>
 </div>
-
+<script>
+    //var fireBase = new Firebase("https://pair-programming-cea9c.firebaseio.com/");
+    //      var config = {
+    //             apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
+    //             authDomain: "pair-programming-cea9c.firebaseapp.com",
+    //             databaseURL: "https://pair-programming-cea9c.firebaseio.com",
+    //             storageBucket: "pair-programming-cea9c.appspot.com",
+    //         };
+    //     firebase.initializeApp(config);
+    //     app = firebase.database().ref();
+    //     fb = app.child('chats')
+    //     $("#submit-btn").bind("click", function() {
+        
+    //     return false;
+    // });   
+    // $("#submit-btn").bind("click", function(event) {
+     
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    // });
+    // $("#submit-btn").bind("click", function() {
+    //     var comment = $("#comments");
+    //     var comment_val = $.trim(comment.val());
+     
+    //     return false;
+    // });
+    // $("#submit-btn").bind("click", function() {
+    // var comment = $("#comments");
+    // var commentValue = $.trim(comment.val());
+ 
+    // fireBaseRef.push({comment: commentValue}, function(error) {
+    //         if (error !== null) {
+    //             alert('Unable to push comments to Firebase!');
+    //         }
+    //     });
+    
+    // return false;
+    // });
+    // $("#submit-btn").bind("click", function() {
+    // var comment = $("#comments");
+    // var commentValue = $.trim(comment.val());
+ 
+    // if (commentValue.length === 0) {
+    //     alert('Comments are required to continue!');
+    // } else {
+    //         _fireBaseRef.push({comment: commentValue}, function(error) {
+    //             if (error !== null) {
+    //                 alert('Unable to push comments to Firebase!');
+    //             }
+    //         });
+    
+    //         comment.val("");
+    //     }
+ 
+    // return false;
+    // });
+    // fireBaseRef.on('child_added', function(snapshot) {
+    //         var uniqName = snapshot.name();
+    //         var comment = snapshot.val().comment;
+    //         var commentsContainer = $('#comments-container');
+ 
+    //         $('<div/>', {class: 'comment-container'})
+    //             .html('<span class="label label-default">Comment ' 
+    //                 + uniqName + '</span>' + comment).appendTo(commentsContainer);
+ 
+    //         commentsContainer.scrollTop(commentsContainer.prop('scrollHeight'));
+    // });
+</script>
 
 {{/if}}
