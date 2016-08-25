@@ -20,13 +20,12 @@ firebase = require("firebase");
 //--------------EXPRESS----------------
 var app = express();
 // Configure Express
-// app.use(logger('combined'));
-//app.use(bodyParser());
-//app.use(cookieParser());
-app.use(session({ secret: 'supernova', saveUninitialized: true, resave: true }));
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-// app.use(methodOverride('X-HTTP-Method-Override'));
+//app.use(logger('combined'));
+app.use(cookieParser());
+app.use(session({ secret: 'supernova' }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(methodOverride('X-HTTP-Method-Override'));
 // app.use(passport.initialize());
 // app.use(passport.session());
 //  write4 s middleware te protectes te app route
@@ -46,6 +45,7 @@ app.use(function(req, res, next) {
 
     next();
 });
+var sess;
 
 // Configure express to use handlebars templates
 var hbs = expresshbs.create({
@@ -67,10 +67,23 @@ app.get('/signin', function(req, res) {
     res.render('signin');
 });
 
+app.post('/signin', function(req, res) {
+    sess = req.session;
+    sess.email = req.bodyParser.username;
+    console.log(sess)
+    res.render('home');
+});
+
 //displays our app page
 app.get('/home/:email', function(req, res) {
-    console.log(req.session.user);
-    console.log(req.params.email);
+    //console.log(req.session);
+    //console.log(req.params.email);
+    sess = req.session;
+    console.log(sess.email);
+    var user = req.params.email;
+    //console.log(req.session);
+    //req
+    //if ()
     res.render('home');
 });
 

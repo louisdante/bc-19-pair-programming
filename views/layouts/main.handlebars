@@ -12,7 +12,7 @@
 
   <!-- CSS framework-->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="../../public/style.css">
   </head>
 
   <body>
@@ -137,8 +137,9 @@
         var password = $("input[name='password']").val(); 
         console.log(email, password);
         firebase.auth().signInWithEmailAndPassword(email, password).then(function(userData){
-            var user = userData.email;
+            var email = userData.email;
             console.log(user, 'fidfodfifi');
+            var user = email.split('@')[0];
             // sessionStorage.setItem('key', user);
            location.href = '/home/' + user;
         }).catch(function(error) {
