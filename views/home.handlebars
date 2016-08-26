@@ -1,21 +1,6 @@
 <!-- views/home.handlebars -->
 {{#if user}}
-  <div class="jumbotron">
-    <h1>Codepair User App</h1>
-    <p>Below is your profile information!</p>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">choose the language you want to use</h3>
-    </div>
-    <div class="panel-body">
-      <p>Username: {{user.username}}</p>
-      <p>Avatar: <img src="{{user.avatar}}"/></p>
-    </div>
-  </div>
-
-{{else}}
-   <nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
 
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,33 +21,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Code Pair</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li></li>
+            <li></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
               {{#if user}}
                 <p class="navbar-text">
                   <strong>Hi,</strong>
-                  <img src="{{user.profilepics}}" width="20" height="20">
                   {{user}}
+                  <img src="{{user.profilepics}}" width="20" height="20">
                 </p>
                 </li>
                 </ul>
@@ -79,19 +52,42 @@
       </div>
     </nav>
   <div class="jumbotron">
-    <h1>Welcome to codepair</h1>
-    <p>Sign in and start coding!</p>
-    <p>
-      <a href="/signin" class="btn btn-primary btn-lg" role="button">
-        <span class="glyphicon glyphicon-user"></span>
-        Sign in!
-      </a>
-    </p>
+    <h1>Codepair User App</h1>
+    <p>Begin below</p>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">choose the language you want to use</h3>
+    </div>
+    <div class="panel-body">
+      <p>Username: {{user}}</p>
+      <!--<p>Avatar: <img src="{{user.avatar}}"/></p>-->
+    </div>
   </div>
   <div class="container">
-    <h1> Chat Area</h1>
- 
-    <div class="panel panel-default col-md-4">
+    <div class="row">
+ <h1> Chat Area</h1>
+    <div class=" col-md-8">
+            <div class="panel-body"></div>
+            <div class="panel-footer">
+    
+                <form role="form">
+                    <div class="form-group">
+                        <label for="comments">Please enter your comments here</label>
+                        <input class="form-control" id="comments" name="comments">
+                    </div>
+    
+                    <button type="submit" id="submit-btn" name="submit-btn"
+                        class="btn btn-primary">Send Comments</button>
+    
+                    <button type="reset" class="btn btn-default">Clear Comments</button>
+                </form>
+    
+            </div>
+    </div>
+    <div class="row">
+        <!--<h1> Chat Area</h1>-->
+<div class="panel panel-default col-md-4">
         <div class="panel-body"></div>
         <div class="panel-footer">
  
@@ -110,6 +106,267 @@
         </div>
     </div>
 </div>
+</div>
+{{else}}
+    <!DOCTYPE html>
+<html class="no-js">
+
+<head>
+   
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- Fonts -->
+    <!-- Lato -->
+    
+</head>
+
+<body id="body">
+
+    <div id="preloader">
+        <div class="book">
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+        </div>
+    </div>
+
+    <!-- 
+	    Header start
+	    ==================== -->
+    <div class="navbar-default navbar-fixed-top" id="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+                <a class="navbar-brand" href="#">
+                    <img class="logo-1" src="images/logo.png" alt="LOGO">
+                    <!--<img class="logo-2" src="../public/images/logo-2.png" alt="LOGO">-->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <nav class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right" id="top-nav">
+                    <li class="current"><a href="#body">Home</a></li>
+                    <li><a href="#about">About us</a></li>
+                    <li><a href="#service">Services</a></li>
+                    <li><a href="/signin">Signin/ Signup</a></li>
+                </ul>
+            </nav>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+
+    <section id="hero-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="block">
+                        <h1 class="wow fadeInDown">Welcome to Codepair</h1>
+                        <p class="wow fadeInDown" data-wow-delay="0.3s">Codango is a site that connects software developers allowing for pair programming and real time chat</p>
+                        <div class="wow fadeInDown" data-wow-delay="0.3s">
+                            <a class="btn btn-default btn-home" href="#about" role="button">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 wow zoomIn">
+                    <div class="block">
+                        <div class="counter text-center">
+                            <ul id="countdown_dashboard">
+                                <li>
+                                    <div class="dash days_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Days</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dash hours_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Hours</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dash minutes_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Minutes</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dash seconds_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Seconds</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .row close -->
+        </div>
+        <!-- .container close -->
+    </section>
+    <!-- header close -->
+
+
+
+    <!-- 
+        About start
+        ==================== -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12 wow fadeInLeft">
+                    <div class="sub-heading">
+                        <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam ipsa recusandae consequatur veniam, reiciendis odit quia eaque vel eius a.</h3>
+                    </div>
+                    <div class="block">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ulla-mco laboris nisi ut aliquip ex ea commodo consequat.
+                            Duis aute irure dolor in</p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, aspernatur.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 wow fadeInLeft" data-wow-delay="0.3s">
+                    <div class="about-slider">
+                        <div class="init-slider">
+                            <div class="about-item">
+                                <img src="images/about/1.jpg" alt="" class="img-responsive">
+                            </div>
+                            <div class="about-item">
+                                <img src="images/about/2.jpg" alt="" class="img-responsive">
+                            </div>
+                            <div class="about-item">
+                                <img src="images/about/3.jpg" alt="" class="img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- #about close -->
+    <!-- 
+        About start
+        ==================== -->
+
+    <!-- 
+        Service start
+        ==================== -->
+    <section id="service" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="heading wow fadeInUp">
+                    <h2>Our service</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et <br> dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex</p>
+                </div>
+                <div class="col-sm-6 col-md-3 wow fadeInLeft">
+                    <div class="service">
+                        <div class="icon-box">
+                            <span class="icon">
+                                    <i class="ion-android-desktop"></i>   
+                                </span>
+                        </div>
+                        <div class="caption">
+                            <h3>Fully Responsive</h3>
+                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.3s">
+                    <div class="service">
+                        <div class="icon-box">
+                            <span class="icon">
+                                    <i class="ion-speedometer"></i>   
+                                </span>
+                        </div>
+                        <div class="caption">
+                            <h3>Speed Optimized</h3>
+                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.6s">
+                    <div class="service">
+                        <div class="icon-box">
+                            <span class="icon">
+                                    <i class="ion-ios-infinite-outline"></i>   
+                                </span>
+                        </div>
+                        <div class="caption">
+                            <h3>Tons of Feature</h3>
+                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.9s">
+                    <div class="service">
+                        <div class="icon-box">
+                            <span class="icon">
+                                    <i class="ion-ios-cloud-outline"></i>   
+                                </span>
+                        </div>
+                        <div class="caption">
+                            <h3>Cloud Option</h3>
+                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .container close -->
+    </section>
+    <!-- #service close -->
+
+    <section id="call-to-action" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 wow text-center">
+                    <div class="block">
+                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Your Email Address">
+                            <button class="btn btn-default btn-submit" type="submit">Get Notified</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- #call-to-action close -->
+
+
+
+    <section clas="wow fadeInUp">
+        <div class="map-wrapper">
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block">
+                        <p>Copyright &copy; <a href="http://www.Themefisher.com">Themefisher</a>| All right reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 <script>
     //var fireBase = new Firebase("https://pair-programming-cea9c.firebaseio.com/");
     //      var config = {

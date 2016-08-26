@@ -7,85 +7,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="User Authentication">
   <meta name="author" content="">
-
-  <title>User Auth</title>
+  <title>Code pair</title>
 
   <!-- CSS framework-->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../public/style.css">
+  <link rel="stylesheet" href="style.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="css/responsive.css">
   </head>
 
   <body>
 
     <div class="container">
 
-      <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-<nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              {{#if user}}
-                <p class="navbar-text">
-                  <strong>Hi,</strong>
-                  <img src="{{user.profilepics}}" width="20" height="20">
-                  {{user}}
-                </p>
-                </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li>
-                    <a href="/logout">Log Out</a>
-                  </li>
-              {{else}}
-                <a href="/signin">Sign In</a>
-                </li>
-              {{/if}}</li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
       </div><!-- /.container-fluid -->
     </nav>
 
-    {{#if error}}
+    <!--{{#if error}}
       <p class="alert alert-warning">{{error}}</p>
     {{/if}}
 
@@ -95,18 +43,31 @@
 
     {{#if notice}}
       <p class="alert alert-info">{{notice}}</p>
-    {{/if}}
+    {{/if}}-->
 
     <!--where our other templates will insert-->
     {{{body}}}
 
-    </div> <!-- /container -->
-
+    </div> 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+      <!-- Js -->
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="js/vendor/jquery-1.10.2.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="js/jquery.lwtCountdown-1.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/jquery.nav.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>
     <!-- Latest compiled and minified JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
@@ -140,11 +101,11 @@
             var email = userData.email;
             console.log(email, 'fidfodfifi');
             var user = email.split('@')[0];
-            $.post( "/signin", { name: user, time: "2pm" }, function(){
-              console.log('succesful');
-            } );
+            $.post( "/signin", { name: user, time: "2pm" }).then(function(){
+                location.href = '/home/' + user;
+              });
            
-           location.href = '/home/' + user;
+          //  location.href = '/home/' + user;
            //console.log(obj);
         }).catch(function(error) {
         // Handle Errors here.

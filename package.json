@@ -19,6 +19,7 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
     "cookie-parser": "*",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
@@ -34,6 +35,7 @@
     "passport-http": "*",
     "passport-local": "*",
     "passport-twitter": "*",
+    "path": "^0.12.7",
     "q": "*"
   }
 }

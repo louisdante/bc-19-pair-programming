@@ -1,21 +1,17 @@
 var express = require('express'),
     expresshbs = require('express-handlebars'),
+    path = require('path'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     session = require('express-session'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    TwitterStrategy = require('passport-twitter'),
-    GoogleStrategy = require('passport-google'),
-    FacebookStrategy = require('passport-facebook');
-firebase = require("firebase");
+    firebase = require("firebase");
 
 // var config = require('./config.js'), //config file contains all tokens and other private info
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
-//This section will contain our work with passport..
+
 
 //--------------EXPRESS----------------
 var app = express();
@@ -26,10 +22,19 @@ app.use(session({ secret: 'supernova' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
-// app.use(passport.initialize());
-// app.use(passport.session());
-//  write4 s middleware te protectes te app route
-// // Session-persisted message middleware
+
+
+//  write a middleware that protectes te app route
+function authChecker(req, res, next) {
+    if (req.session.username) {
+        //res.redirect("/home/" + req.session.username);
+        next();
+    } else {
+        res.redirect("/signin");
+    }
+}
+
+// Session-persisted message middleware
 app.use(function(req, res, next) {
     var err = req.session.error,
         msg = req.session.notice,
@@ -51,6 +56,7 @@ var sess;
 var hbs = expresshbs.create({
     defaultLayout: 'main', //we will be creating this layout shortly
 });
+app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
@@ -71,30 +77,27 @@ app.get('/signin', function(req, res) {
 //post session information
 app.post('/signin', function(req, res) {
     req.session.username = req.body.name;
-    res.redirect('/');
+    res.status(200).json('ok');
 });
 
 //displays our app page
-app.get('/home/:email', function(req, res) {
+app.get('/home/:email', authChecker, function(req, res) {
+    console.log(req.session, 'testing');
     sess = req.session;
-    //var user = req.params.email;
     console.log(sess.username);
-    var usrname = sess.username;
-    if (usrname) {
-
-    } else {
-        redirect('/signin');
-    }
-    res.render('home');
+    var user = sess.username;
+    console.log(user, 'luubuibsi');
+    res.render('home', { user: user });
 });
 
 //logs user out of site, deleting them from the session, and returns to homepage
 app.get('/logout', function(req, res) {
-    var name = req.user.username;
-    console.log("LOGGIN OUT " + name);
-    req.logout();
-    res.redirect('/');
-    req.session.notice = "You have successfully been logged out " + name + "!";
+    var sess = req.session;
+    var user = sess.username
+    console.log("LOGGIN OUT " + user);
+    req.session.destroy(function() {
+        res.redirect('/');
+    });
 });
 
 
