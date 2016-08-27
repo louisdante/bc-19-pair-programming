@@ -51,43 +51,87 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-  <div class="jumbotron">
+  <div class="jumbotron" style="margin-top:40px; padding: 20px; height: 300px">
     <h1>Codepair User App</h1>
     <p>Begin below</p>
   </div>
-  <div class="panel panel-default">
+  {{#if user}}
+  <div class="panel panel-default col-md-8">
     <div class="panel-heading">
-      <h3 class="panel-title">choose the language you want to use</h3>
+      <h3 class="panel-title">List of active users</h3>
     </div>
-    <div class="panel-body">
-      <p>Username: {{user}}</p>
-      <!--<p>Avatar: <img src="{{user.avatar}}"/></p>-->
+   
+  </div>
+    <div class="panel-body col-md-4">
+      <div class="form-inline">
+          <form id="" method="post" >
+        <input type="text" class="form-control" name ="" placeholder="Invite user(s) to session">
+        <input type="submit" value="create session" class="btn btn-primary btn-sm">
+        </form>
+  </div>
+    </div>
+  {{else}}
+  <div class="panel panel-default col-md-9">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create a session below</h3>
+    </div>
+    <div class="panel-body col-md-9">
+      <div class="form-inline">
+          <form id="session" method="post" >
+        <input type="text" class="form-control" name ="session_name" placeholder="Eg: javascript">
+        <input type="submit" value="create session" class="btn btn-primary btn-sm">
+        </form>
+  </div>
     </div>
   </div>
+ 
+    {{/if}}
   <div class="container">
     <div class="row">
- <h1> Chat Area</h1>
-    <div class=" col-md-8">
-            <div class="panel-body"></div>
-            <div class="panel-footer">
-    
-                <form role="form">
-                    <div class="form-group">
-                        <label for="comments">Please enter your comments here</label>
-                        <input class="form-control" id="comments" name="comments">
-                    </div>
-    
-                    <button type="submit" id="submit-btn" name="submit-btn"
-                        class="btn btn-primary">Send Comments</button>
-    
-                    <button type="reset" class="btn btn-default">Clear Comments</button>
-                </form>
-    
-            </div>
+        <div class="col-md-8">
+        <form class="form">
+          <div class="form-group col-md-6">
+            <label for="mode" class="control-label">Language Mode:</label>
+            <select id="language" class="form-control">
+              <option value="ruby">Ruby</option>
+              <option value="css">CSS</option>
+              <option value="javascript"  selected="selected"  >JavaScript</option>
+              <option value="java">Java</option>
+              <option value="PHP">PHP</option>
+              <option value="python">Python</option>
+              <option value="html">HTML</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6" id="theme">
+            <label for="mode" class="control-label">Theme:</label>
+            <select id="mode" class="form-control">
+              <option value="textmate"  >Textmate</option>
+              <option value="clouds"  >Clouds</option>
+              <option value="eclipse"  >Eclipse</option>
+              <option value="terminal"  >Terminal</option>
+              <option value="github"  >Github</option>
+              <option value="monokai"  >Monokai</option>
+              <option value="chaos"  >Chaos</option>
+              <option value="iplastic"  >iPlastic</option>
+              <option value="cobalt"  selected="selected"  >Cobalt</option>
+              <option value="dawn"  >Dawn</option>
+              <option value="dreamweaver"  >Dreamweaver</option>
+            </select>
+          </div>
+        </form>
+        <div>
+         <div id="editor" class="col-sm-12" style="height: 300px;">
+          function foo(items) {
+              var x = "All this is syntax highlighted";
+              return x;
+          }
+        </div>
     </div>
-    <div class="row">
-        <!--<h1> Chat Area</h1>-->
-<div class="panel panel-default col-md-4">
+       </div> 
+    <div class="col-md-4">
+        <h1> Chat Area</h1>
+         <!--<h1> Chat Area</h1>-->
+<div class="panel panel-default">
         <div class="panel-body"></div>
         <div class="panel-footer">
  
@@ -105,8 +149,91 @@
  
         </div>
     </div>
+    </div>
 </div>
-</div>
+<script>
+    var editor = ace.edit("editor");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/javascript");
+
+
+// // //Set variables
+// var FIRBASE_URL = "https://pair-programming-cea9c.firebaseio.com";
+// var session = null;
+// var editor = null;
+// //var userid = Cookies.get('userid');
+// var displayName = $('#username').data('user');
+// var firepadRef = new Firebase(FIRBASE_URL);
+// var sessionId = $('#session-id').val(); 
+// //changes lang and theme..... 
+// function changeEditorOption(language, theme) {
+//   editor.setTheme('ace/theme/' + theme);
+//   session.setMode('ace/mode/' + language);
+
+//  //
+//  $(document).ready(function () {
+//   var app = {
+//     init: function (selectedLanguage, selectedTheme) {
+//       // Set defaults for the theme and language
+
+//       save_theme = localStorage.getItem('theme')
+//       if(save_theme){
+//         $('#theme').val(save_theme);
+//       }
+//       var theme = selectedTheme || save_theme || 'monokai';
+//       var language = selectedLanguage || 'javascript';
+
+//       // Get current session firebase ref
+//       editor = ace.edit('firepad-container');
+//       session = editor.getSession();
+//       app.bindEvents();
+//       // Initialize ACE Editor
+//       editor.setTheme('ace/theme/' + theme);
+//       session.setUseWrapMode(true);
+//       session.setUseWorker(false);
+//       session.setMode('ace/mode/' + language);
+//       pageRef = app.getPageRef();
+//       var firePad = Firepad.fromACE(pageRef, editor);
+//       var firepadUserList = FirepadUserList.fromDiv(pageRef.child('users/'+
+//          sessionId), document.getElementById('userlist'), userid, displayName);
+//     },
+//     bindEvents: function () {
+//       // Language change event handler
+//       $('#language').change(function () {
+//         var lang = $(this).val();
+//         var theme = $('#theme').val();
+//         changeEditorOption(lang, theme);
+//         app.updateSession(lang);
+//       }); 
+// }
+// // Theme change event handler
+//       $('#theme').change(function () {
+//         var theme = $(this).val();
+//         var lang = $('#language').val();
+//         changeEditorOption(lang, theme);
+
+//         localStorage.setItem('theme', theme)
+//       });
+//     },
+//     getPageRef: function () {
+//       return firepadRef.child('session/' + sessionId);
+//     },
+//     updateSession: function (lang) {
+//       // Update the programming language of session
+//       var sessionId = $('#session-id').val();
+//       $.ajax({
+//         url: '/pair/'+sessionId,
+//         type: 'PUT',
+//         data: {
+//           'language': lang
+//         }
+//       });
+//     }
+//   };
+//  app.init();
+// });
+</script>
+
 {{else}}
     <!DOCTYPE html>
 <html class="no-js">
@@ -361,7 +488,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="block">
-                        <p>Copyright &copy; <a href="http://www.Themefisher.com">Themefisher</a>| All right reserved.</p>
+                        <p>Copyright &copy; <a href="#">code-buddies</a>| All right reserved.</p>
                     </div>
                 </div>
             </div>
