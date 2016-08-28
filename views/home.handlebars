@@ -32,7 +32,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               {{#if user}}
-                <p class="navbar-text">
+                <p class="navbar-text" data-user=" {{user}}" id="userId">
                   <strong>Hi,</strong>
                   {{user}}
                   <img src="{{user.profilepics}}" width="20" height="20">
@@ -58,17 +58,18 @@
   {{#if session}}
   <div class="panel panel-default col-md-8">
     <div class="panel-heading">
-        <h2 id="session_id" data-user=" {{session}}">Session: {{session}}</h2>
+        <h2 id="session_id" data-user="{{session}}">Session: {{session}}</h2>
         <h3 class="panel-title"><b>List of active users</b></h3>
-        <p id="username" data-user=" {{user}}"> Users: {{user}}</p>
+        <p id="username" data-user="{{user}}"> Users: {{user}}</p>
     </div>
    
   </div>
     <div class="panel-body col-md-4">
       <div class="form-inline">
           <form id="" method="post" >
-        <input type="text" class="form-control" name ="" placeholder="Invite user(s) to session">
-        <input id="sendChatBtn" type="submit" value="Invite" class="btn btn-primary btn-sm">
+        <input  type="text" class="form-control" name ="guest_usrname" placeholder="Invite user(s) to session">
+        <!--<input id="sendChatBtn" type="submit" value="Invite" class="btn btn-primary btn-sm">-->
+        <button type="submit" id="sendChatBtn" name="submit-btn" class="btn btn-primary btn-sm">Invite</button>
         </form>
   </div>
     </div>
@@ -80,6 +81,7 @@
     <div class="panel-body col-md-9">
       <div class="form-inline">
           <form id="session" method="post" >
+        <input type="hidden" class="form-control" name ="user_name" value= "{{ user }}">
         <input type="text" class="form-control" name ="session_name" placeholder="Eg: javascript">
         <input type="submit" value="create session" class="btn btn-primary btn-sm">
         </form>
