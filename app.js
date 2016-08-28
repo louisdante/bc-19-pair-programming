@@ -133,9 +133,9 @@ app.get('/session/:session', authChecker, function(req, res) {
     dbs.on('value', function(snapshot) {
         console.log('got yere');
         var page_sess = snapshot.val();
-        _.forOwn(page_sess, function(value, key) {
-
-        });
+        if (!_.includes(page_sess.user, user)) {
+            res.redirect('/home');
+        };
         console.log(page_sess, 'active session');
         res.render('home', { user: user, session: session, activeSession: JSON.stringify(page_sess) });
     });
