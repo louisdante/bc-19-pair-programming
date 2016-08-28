@@ -156,106 +156,11 @@
     </div>
     </div>
 </div>
-<!--<script>
- 
-//     var editor = ace.edit("editor");
-// editor.setTheme("ace/theme/monokai");
-// editor.getSession().setMode("ace/mode/javascript");
-
- var config = {
-        apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
-        authDomain: "pair-programming-cea9c.firebaseapp.com",
-        databaseURL: "https://pair-programming-cea9c.firebaseio.com",
-        storageBucket: "pair-programming-cea9c.appspot.com",
-    };
-    firebase.initializeApp(config);
-
-    //init realtime database
-    var db = firebase.database();
-    var ref = db.ref("session-id/");
-
-    //Set variables
-    var session = null;
-    var editor = null;
-    //var userid = Cookies.get('userid');
-    var displayName = $('#username').data('user');
-    var sessionId = $('#session-id').data('session'); 
-    //changes lang and theme..... 
-    function changeEditorOption(language, theme) {
-    editor.setTheme('ace/theme/' + theme);
-    session.setMode('ace/mode/' + language);
-    }
- //
- $(document).ready(function ($) {
-  var app = {
-    init: function (selectedLanguage, selectedTheme) {
-      // Set defaults for the theme and language
-
-      save_theme = localStorage.getItem('theme');
-      if(save_theme){
-        $('#theme').val(save_theme);
-      }
-      var theme = selectedTheme || save_theme || 'monokai';
-      var language = selectedLanguage || 'javascript';
-
-      // Get current session firebase ref
-      editor = ace.edit('editor');
-      session = editor.getSession();
-      app.bindEvents();
-      // Initialize ACE Editor
-      editor.setTheme('ace/theme/' + theme);
-      session.setUseWrapMode(true);
-      session.setUseWorker(false);
-      session.setMode('ace/mode/' + language);
-      pageRef = app.getPageRef();
-      var firePad = Firepad.fromACE(pageRef, editor);
-      var firepadUserList = FirepadUserList.fromDiv(pageRef.child('users/'+
-         sessionId), document.getElementById('userlist'), userid, displayName);
-    },
-    bindEvents: function () {
-      // Language change event handler
-      $('#language').change(function () {
-          console.log(language);
-        var lang = $(this).val();
-        var theme = $('#theme').val();
-        changeEditorOption(lang, theme);
-        app.updateSession(lang);
-      }); 
-
-       $('#theme').change(function () {
-        var theme = $(this).val();
-        var lang = $('#language').val();
-        changeEditorOption(lang, theme);
-
-        localStorage.setItem('theme', theme);
-      });     
-    },
-    getPageRef: function () {
-      return firepadRef.child('session/' + sessionId);
-    },
-    updateSession: function (lang) {
-      // Update the programming language of session
-      var sessionId = $('#session-id').val();
-      $.ajax({
-        url: '/pair/'+sessionId,
-        type: 'PUT',
-        data: {
-          'language': lang
-        }
-      });
-    }
-  };
- app.init();
-});
-</script>-->
-
 {{else}}
     <!DOCTYPE html>
 <html class="no-js">
 
 <head>
-   
-
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- Fonts -->
@@ -288,7 +193,7 @@
 	                </button>
                 <a class="navbar-brand" href="#">
                     <img class="logo-1" src="images/logo.png" alt="LOGO">
-                    <!--<img class="logo-2" src="../public/images/logo-2.png" alt="LOGO">-->
+                    <img class="logo-2" src="../public/images/logo-2.png" alt="LOGO">
                 </a>
             </div>
 
@@ -296,8 +201,6 @@
             <nav class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-right" id="top-nav">
                     <li class="current"><a href="#body">Home</a></li>
-                    <li><a href="#about">About us</a></li>
-                    <li><a href="#service">Services</a></li>
                     <li><a href="/signin">Signin/ Signup</a></li>
                 </ul>
             </nav>
@@ -311,8 +214,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="block">
-                        <h1 class="wow fadeInDown">Welcome to Codepair</h1>
-                        <p class="wow fadeInDown" data-wow-delay="0.3s">Codango is a site that connects software developers allowing for pair programming and real time chat</p>
+                        <h1 class="wow fadeInDown">Welcome to Code-Buddies</h1>
+                        <p class="wow fadeInDown" data-wow-delay="0.3s">Code buddies is a site that connects software developers allowing for pair programming and real time chat</p>
                         <div class="wow fadeInDown" data-wow-delay="0.3s">
                             <a class="btn btn-default btn-home" href="#about" role="button">Get Started</a>
                         </div>
@@ -320,6 +223,7 @@
                 </div>
                 <div class="col-md-6 wow zoomIn">
                     <div class="block">
+                        <h1 class="wow fadeInDown">Count Down To Launch</h1>
                         <div class="counter text-center">
                             <ul id="countdown_dashboard">
                                 <li>
@@ -361,134 +265,6 @@
         <!-- .container close -->
     </section>
     <!-- header close -->
-
-
-
-    <!-- 
-        About start
-        ==================== -->
-    <section id="about" class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7 col-sm-12 wow fadeInLeft">
-                    <div class="sub-heading">
-                        <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam ipsa recusandae consequatur veniam, reiciendis odit quia eaque vel eius a.</h3>
-                    </div>
-                    <div class="block">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ulla-mco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in</p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, aspernatur.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-5 col-sm-12 wow fadeInLeft" data-wow-delay="0.3s">
-                    <div class="about-slider">
-                        <div class="init-slider">
-                            <div class="about-item">
-                                <img src="images/about/1.jpg" alt="" class="img-responsive">
-                            </div>
-                            <div class="about-item">
-                                <img src="images/about/2.jpg" alt="" class="img-responsive">
-                            </div>
-                            <div class="about-item">
-                                <img src="images/about/3.jpg" alt="" class="img-responsive">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- #about close -->
-    <!-- 
-        About start
-        ==================== -->
-
-    <!-- 
-        Service start
-        ==================== -->
-    <section id="service" class="section">
-        <div class="container">
-            <div class="row">
-                <div class="heading wow fadeInUp">
-                    <h2>Our service</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et <br> dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex</p>
-                </div>
-                <div class="col-sm-6 col-md-3 wow fadeInLeft">
-                    <div class="service">
-                        <div class="icon-box">
-                            <span class="icon">
-                                    <i class="ion-android-desktop"></i>   
-                                </span>
-                        </div>
-                        <div class="caption">
-                            <h3>Fully Responsive</h3>
-                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.3s">
-                    <div class="service">
-                        <div class="icon-box">
-                            <span class="icon">
-                                    <i class="ion-speedometer"></i>   
-                                </span>
-                        </div>
-                        <div class="caption">
-                            <h3>Speed Optimized</h3>
-                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.6s">
-                    <div class="service">
-                        <div class="icon-box">
-                            <span class="icon">
-                                    <i class="ion-ios-infinite-outline"></i>   
-                                </span>
-                        </div>
-                        <div class="caption">
-                            <h3>Tons of Feature</h3>
-                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-3 wow fadeInLeft" data-wow-delay="0.9s">
-                    <div class="service">
-                        <div class="icon-box">
-                            <span class="icon">
-                                    <i class="ion-ios-cloud-outline"></i>   
-                                </span>
-                        </div>
-                        <div class="caption">
-                            <h3>Cloud Option</h3>
-                            <p>Lorem ipsum dolor sit amet, con-sectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- .container close -->
-    </section>
-    <!-- #service close -->
-
-    <section id="call-to-action" class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 wow text-center">
-                    <div class="block">
-                        <h2>Lorem ipsum dolor sit amet, consectetur adipisicing</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Your Email Address">
-                            <button class="btn btn-default btn-submit" type="submit">Get Notified</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <!-- #call-to-action close -->
 
 
@@ -510,72 +286,5 @@
         </div>
     </footer>
 <script>
-    //var fireBase = new Firebase("https://pair-programming-cea9c.firebaseio.com/");
-    //      var config = {
-    //             apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
-    //             authDomain: "pair-programming-cea9c.firebaseapp.com",
-    //             databaseURL: "https://pair-programming-cea9c.firebaseio.com",
-    //             storageBucket: "pair-programming-cea9c.appspot.com",
-    //         };
-    //     firebase.initializeApp(config);
-    //     app = firebase.database().ref();
-    //     fb = app.child('chats')
-    //     $("#submit-btn").bind("click", function() {
-        
-    //     return false;
-    // });   
-    // $("#submit-btn").bind("click", function(event) {
-     
-    //     event.preventDefault();
-    //     event.stopPropagation();
-    // });
-    // $("#submit-btn").bind("click", function() {
-    //     var comment = $("#comments");
-    //     var comment_val = $.trim(comment.val());
-     
-    //     return false;
-    // });
-    // $("#submit-btn").bind("click", function() {
-    // var comment = $("#comments");
-    // var commentValue = $.trim(comment.val());
- 
-    // fireBaseRef.push({comment: commentValue}, function(error) {
-    //         if (error !== null) {
-    //             alert('Unable to push comments to Firebase!');
-    //         }
-    //     });
-    
-    // return false;
-    // });
-    // $("#submit-btn").bind("click", function() {
-    // var comment = $("#comments");
-    // var commentValue = $.trim(comment.val());
- 
-    // if (commentValue.length === 0) {
-    //     alert('Comments are required to continue!');
-    // } else {
-    //         _fireBaseRef.push({comment: commentValue}, function(error) {
-    //             if (error !== null) {
-    //                 alert('Unable to push comments to Firebase!');
-    //             }
-    //         });
-    
-    //         comment.val("");
-    //     }
- 
-    // return false;
-    // });
-    // fireBaseRef.on('child_added', function(snapshot) {
-    //         var uniqName = snapshot.name();
-    //         var comment = snapshot.val().comment;
-    //         var commentsContainer = $('#comments-container');
- 
-    //         $('<div/>', {class: 'comment-container'})
-    //             .html('<span class="label label-default">Comment ' 
-    //                 + uniqName + '</span>' + comment).appendTo(commentsContainer);
- 
-    //         commentsContainer.scrollTop(commentsContainer.prop('scrollHeight'));
-    // });
 </script>
-
 {{/if}}
