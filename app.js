@@ -110,10 +110,20 @@ app.get('/home', authChecker, function(req, res) {
     var user = sess.username;
     res.render('home', { user: user });
 });
-
+// app.get('eoiawfoawef/:session', authChecker, function(){
+//  var dbs = firebase.database().ref("session-id");
+//     dbs.on('value', function(snapshot) {
+//         console.log('got yere');
+//         var page_sess = _.values(snapshot.val());
+//         var someActive = _.filter(page_sess, { session: 'javascript' })[0];
+//         someActive.users = someActive.users.push(req.session.username)
+//        dbs.push(someActive)
+//        res.redirect
+//     });
+// })
 
 //create new session route
-app.get('/session/:session', function(req, res) {
+app.get('/session/:session', authChecker, function(req, res) {
     var user = req.session.username;
     console.log(user);
     var session = req.params.session;

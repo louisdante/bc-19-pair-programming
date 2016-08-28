@@ -93,3 +93,25 @@
  // }
 
  })(config);
+
+
+
+
+ //database obj
+ function writeNewPost(uid, username, picture, title, body) {
+     // A post entry.
+     var postData = {
+         author: 'tony',
+         uid: 'uid',
+         body: 'body',
+         title: 'fish',
+         starCount: 1,
+         authorPic: 'picture2',
+         users: [4, 5, 6, 7, 8, 8]
+     };
+
+     // Get a kery for a new Post.
+     var databaseRef = ref.push(postData);
+     // databaseRef.push(postData);
+ }
+ writeNewPost();

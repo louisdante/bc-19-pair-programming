@@ -55,10 +55,12 @@
     <h1>Codepair User App</h1>
     <p>Begin below</p>
   </div>
-  {{#if user}}
+  {{#if session}}
   <div class="panel panel-default col-md-8">
     <div class="panel-heading">
-      <h3 class="panel-title">List of active users</h3>
+        <h2 id="session_id" data-user=" {{session}}">Session: {{session}}</h2>
+        <h3 class="panel-title"><b>List of active users</b></h3>
+        <p id="username" data-user=" {{user}}"> Users: {{user}}</p>
     </div>
    
   </div>
@@ -66,7 +68,7 @@
       <div class="form-inline">
           <form id="" method="post" >
         <input type="text" class="form-control" name ="" placeholder="Invite user(s) to session">
-        <input type="submit" value="create session" class="btn btn-primary btn-sm">
+        <input id="sendChatBtn" type="submit" value="Invite" class="btn btn-primary btn-sm">
         </form>
   </div>
     </div>
@@ -102,20 +104,20 @@
               <option value="html">HTML</option>
             </select>
           </div>
-          <div class="form-group col-md-6" id="theme">
+          <div class="form-group col-md-6">
             <label for="mode" class="control-label">Theme:</label>
-            <select id="mode" class="form-control">
-              <option value="textmate"  >Textmate</option>
-              <option value="clouds"  >Clouds</option>
-              <option value="eclipse"  >Eclipse</option>
-              <option value="terminal"  >Terminal</option>
-              <option value="github"  >Github</option>
-              <option value="monokai"  >Monokai</option>
-              <option value="chaos"  >Chaos</option>
-              <option value="iplastic"  >iPlastic</option>
-              <option value="cobalt"  selected="selected"  >Cobalt</option>
-              <option value="dawn"  >Dawn</option>
-              <option value="dreamweaver"  >Dreamweaver</option>
+            <select id="theme" class="form-control">
+              <option value="textmate">Textmate</option>
+              <option value="clouds">Clouds</option>
+              <option value="eclipse">Eclipse</option>
+              <option value="terminal">Terminal</option>
+              <option value="github">Github</option>
+              <option value="monokai">Monokai</option>
+              <option value="chaos">Chaos</option>
+              <option value="iplastic">iPlastic</option>
+              <option value="cobalt" selected="selected">Cobalt</option>
+              <option value="dawn">Dawn</option>
+              <option value="dreamweaver">Dreamweaver</option>
             </select>
           </div>
         </form>
@@ -137,8 +139,9 @@
  
             <form role="form">
                 <div class="form-group">
-                    <label for="comments">Please enter your comments here</label>
-                    <input class="form-control" id="comments" name="comments">
+                    <label for="comments"></label>
+                    <div id="messageDiv"></div>
+                    <input class="form-control" id="messageInput" name="comments" placeholder="enter your messages here">
                 </div>
  
                 <button type="submit" id="submit-btn" name="submit-btn"
@@ -151,88 +154,98 @@
     </div>
     </div>
 </div>
-<script>
-    var editor = ace.edit("editor");
-editor.setTheme("ace/theme/monokai");
-editor.getSession().setMode("ace/mode/javascript");
+<!--<script>
+ 
+//     var editor = ace.edit("editor");
+// editor.setTheme("ace/theme/monokai");
+// editor.getSession().setMode("ace/mode/javascript");
 
+ var config = {
+        apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
+        authDomain: "pair-programming-cea9c.firebaseapp.com",
+        databaseURL: "https://pair-programming-cea9c.firebaseio.com",
+        storageBucket: "pair-programming-cea9c.appspot.com",
+    };
+    firebase.initializeApp(config);
 
-// // //Set variables
-// var FIRBASE_URL = "https://pair-programming-cea9c.firebaseio.com";
-// var session = null;
-// var editor = null;
-// //var userid = Cookies.get('userid');
-// var displayName = $('#username').data('user');
-// var firepadRef = new Firebase(FIRBASE_URL);
-// var sessionId = $('#session-id').val(); 
-// //changes lang and theme..... 
-// function changeEditorOption(language, theme) {
-//   editor.setTheme('ace/theme/' + theme);
-//   session.setMode('ace/mode/' + language);
+    //init realtime database
+    var db = firebase.database();
+    var ref = db.ref("session-id/");
 
-//  //
-//  $(document).ready(function () {
-//   var app = {
-//     init: function (selectedLanguage, selectedTheme) {
-//       // Set defaults for the theme and language
+    //Set variables
+    var session = null;
+    var editor = null;
+    //var userid = Cookies.get('userid');
+    var displayName = $('#username').data('user');
+    var sessionId = $('#session-id').data('session'); 
+    //changes lang and theme..... 
+    function changeEditorOption(language, theme) {
+    editor.setTheme('ace/theme/' + theme);
+    session.setMode('ace/mode/' + language);
+    }
+ //
+ $(document).ready(function ($) {
+  var app = {
+    init: function (selectedLanguage, selectedTheme) {
+      // Set defaults for the theme and language
 
-//       save_theme = localStorage.getItem('theme')
-//       if(save_theme){
-//         $('#theme').val(save_theme);
-//       }
-//       var theme = selectedTheme || save_theme || 'monokai';
-//       var language = selectedLanguage || 'javascript';
+      save_theme = localStorage.getItem('theme');
+      if(save_theme){
+        $('#theme').val(save_theme);
+      }
+      var theme = selectedTheme || save_theme || 'monokai';
+      var language = selectedLanguage || 'javascript';
 
-//       // Get current session firebase ref
-//       editor = ace.edit('firepad-container');
-//       session = editor.getSession();
-//       app.bindEvents();
-//       // Initialize ACE Editor
-//       editor.setTheme('ace/theme/' + theme);
-//       session.setUseWrapMode(true);
-//       session.setUseWorker(false);
-//       session.setMode('ace/mode/' + language);
-//       pageRef = app.getPageRef();
-//       var firePad = Firepad.fromACE(pageRef, editor);
-//       var firepadUserList = FirepadUserList.fromDiv(pageRef.child('users/'+
-//          sessionId), document.getElementById('userlist'), userid, displayName);
-//     },
-//     bindEvents: function () {
-//       // Language change event handler
-//       $('#language').change(function () {
-//         var lang = $(this).val();
-//         var theme = $('#theme').val();
-//         changeEditorOption(lang, theme);
-//         app.updateSession(lang);
-//       }); 
-// }
-// // Theme change event handler
-//       $('#theme').change(function () {
-//         var theme = $(this).val();
-//         var lang = $('#language').val();
-//         changeEditorOption(lang, theme);
+      // Get current session firebase ref
+      editor = ace.edit('editor');
+      session = editor.getSession();
+      app.bindEvents();
+      // Initialize ACE Editor
+      editor.setTheme('ace/theme/' + theme);
+      session.setUseWrapMode(true);
+      session.setUseWorker(false);
+      session.setMode('ace/mode/' + language);
+      pageRef = app.getPageRef();
+      var firePad = Firepad.fromACE(pageRef, editor);
+      var firepadUserList = FirepadUserList.fromDiv(pageRef.child('users/'+
+         sessionId), document.getElementById('userlist'), userid, displayName);
+    },
+    bindEvents: function () {
+      // Language change event handler
+      $('#language').change(function () {
+          console.log(language);
+        var lang = $(this).val();
+        var theme = $('#theme').val();
+        changeEditorOption(lang, theme);
+        app.updateSession(lang);
+      }); 
 
-//         localStorage.setItem('theme', theme)
-//       });
-//     },
-//     getPageRef: function () {
-//       return firepadRef.child('session/' + sessionId);
-//     },
-//     updateSession: function (lang) {
-//       // Update the programming language of session
-//       var sessionId = $('#session-id').val();
-//       $.ajax({
-//         url: '/pair/'+sessionId,
-//         type: 'PUT',
-//         data: {
-//           'language': lang
-//         }
-//       });
-//     }
-//   };
-//  app.init();
-// });
-</script>
+       $('#theme').change(function () {
+        var theme = $(this).val();
+        var lang = $('#language').val();
+        changeEditorOption(lang, theme);
+
+        localStorage.setItem('theme', theme);
+      });     
+    },
+    getPageRef: function () {
+      return firepadRef.child('session/' + sessionId);
+    },
+    updateSession: function (lang) {
+      // Update the programming language of session
+      var sessionId = $('#session-id').val();
+      $.ajax({
+        url: '/pair/'+sessionId,
+        type: 'PUT',
+        data: {
+          'language': lang
+        }
+      });
+    }
+  };
+ app.init();
+});
+</script>-->
 
 {{else}}
     <!DOCTYPE html>
