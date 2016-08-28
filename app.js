@@ -111,17 +111,6 @@ app.get('/home', authChecker, function(req, res) {
     console.log(user);
     res.render('home', { user: user });
 });
-// app.get('eoiawfoawef/:session', authChecker, function(){
-//  var dbs = firebase.database().ref("session-id");
-//     dbs.on('value', function(snapshot) {
-//         console.log('got yere');
-//         var page_sess = _.values(snapshot.val());
-//         var someActive = _.filter(page_sess, { session: 'javascript' })[0];
-//         someActive.users = someActive.users.push(req.session.username)
-//        dbs.push(someActive)
-//        res.redirect
-//     });
-// })
 
 //create new session route
 app.get('/session/:session', authChecker, function(req, res) {
@@ -135,9 +124,10 @@ app.get('/session/:session', authChecker, function(req, res) {
         var page_sess = snapshot.val();
         if (!_.includes(page_sess.user, user)) {
             res.redirect('/home');
-        };
-        console.log(page_sess, 'active session');
-        res.render('home', { user: user, session: session, activeSession: JSON.stringify(page_sess) });
+        } else {
+            console.log(page_sess, 'active session');
+            res.render('home', { user: user, session: session, activeSession: JSON.stringify(page_sess) });
+        }
     });
 });
 

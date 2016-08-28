@@ -218,13 +218,13 @@ function chatInit(session) {
 }
 
 
-var editor = ace.edit("editor");
-editor.setTheme("ace/theme/monokai");
-editor.getSession().setMode("ace/mode/javascript");
+// var editor = ace.edit("editor");
+// editor.setTheme("ace/theme/monokai");
+// editor.getSession().setMode("ace/mode/javascript");
 
 //init realtime database
 var dbpad = firebase.database();
-var refPad = db.ref("session-id");
+var refPad = dbpad.ref();
 
 //Set variables
 var session = null;
@@ -257,7 +257,10 @@ var app = {
         session.setUseWorker(false);
         session.setMode('ace/mode/' + language);
         pageRef = app.getPageRef();
-        var firePad = Firepad.fromACE(pageRef, editor);
+        editor.setValue('');
+
+        var firepad = Firepad.fromACE(pageRef, editor);
+
     },
     bindEvents: function() {
         // Language change event handler
@@ -276,7 +279,7 @@ var app = {
         });
     },
     getPageRef: function() {
-        console.log(refPad.child('session/' + sessionId));
+        return refPad.child('session/' + sessionId);
     },
     updateSession: function(lang) {
         // Update the programming language of session
@@ -288,8 +291,10 @@ var app = {
             }
         });
     }
+
 };
 app.init();
+
 </script>
 </body>
 </html>
