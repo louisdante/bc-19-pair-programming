@@ -171,22 +171,6 @@ $("#sendChatBtn").click(function(e) {
     ref.child(sessionId).update(activeSession);
 });
 
-// $('#messageInput').keypress(function(e) {
-//     if (e.keyCode == 13) {
-//         var name = $('#username').data('user');
-//         var text = $('#messageInput').val();
-//         ref.push({ name: name, text: text });
-//         // messageRef.child('currentMessage');
-//         $('#messageInput').val();
-//     }
-//     ref.on('child_added', function(snapshot) {
-//         var message = snapshot.val();
-//         console.log(message);
-//         document.getElementById('messageDiv').innerHTML += message.name + '--' + message.text + '<br/>';
-
-//     });
-// });
-
 // new set of code to be used.....
  var username = $("input[name='user_name']").val();
  var sess_Id = $('#session_id').data('user');
@@ -203,7 +187,7 @@ $("#sendChatBtn").click(function(e) {
             '<i class="">done_all</i></p>')
     });
 
-    $("#chat_submit-btn").click(function(e) {
+    $("#chat_submit-btn").on('submit', function(e) {
         e.preventDefault();
         sendToFirebase();
     });
@@ -302,7 +286,6 @@ var app = {
 
 };
 app.init();
-
 </script>
 </body>
 </html>
