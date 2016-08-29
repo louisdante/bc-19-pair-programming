@@ -1,21 +1,35 @@
 var express = require('express'),
     expresshbs = require('express-handlebars'),
+    path = require('path'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     session = require('express-session'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    TwitterStrategy = require('passport-twitter'),
-    GoogleStrategy = require('passport-google'),
-    FacebookStrategy = require('passport-facebook');
-firebase = require("firebase");
+    _ = require('lodash'),
+    firebase = require("firebase");
+
+
+//init firebase
+var config = {
+    apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
+    authDomain: "pair-programming-cea9c.firebaseapp.com",
+    databaseURL: "https://pair-programming-cea9c.firebaseio.com",
+    storageBucket: "pair-programming-cea9c.appspot.com",
+};
+
+//init firebase
+firebase.initializeApp(config);
+
+//init realtime database
+var db = firebase.database().ref("session-id");
+
+
 
 // var config = require('./config.js'), //config file contains all tokens and other private info
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
-//This section will contain our work with passport..
+
 
 //--------------EXPRESS----------------
 var app = express();
@@ -26,10 +40,25 @@ app.use(session({ secret: 'supernova' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
-// app.use(passport.initialize());
-// app.use(passport.session());
-//  write4 s middleware te protectes te app route
-// // Session-persisted message middleware
+
+app.use('/signin', function(req, res, next) {
+        if (!req.session.username) {
+            next();
+        } else {
+            res.redirect("/home/" + req.session.username);
+        }
+    })
+    //  write a middleware that protectes te app route
+function authChecker(req, res, next) {
+    if (req.session.username) {
+        //res.redirect("/home/" + req.session.username);
+        next();
+    } else {
+        res.redirect("/signin");
+    }
+}
+
+// Session-persisted message middleware
 app.use(function(req, res, next) {
     var err = req.session.error,
         msg = req.session.notice,
@@ -51,14 +80,15 @@ var sess;
 var hbs = expresshbs.create({
     defaultLayout: 'main', //we will be creating this layout shortly
 });
+app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 //---------------ROUTES----------------
-//this holds our routes
+
 //displays our homepage
 app.get('/', function(req, res) {
-    console.log(req.session.username, 'usrname session');
+    console.log(req.session.username, '');
     console.log('got here???')
     res.render('home', { user: req.user });
 });
@@ -68,30 +98,47 @@ app.get('/signin', function(req, res) {
     res.render('signin');
 });
 
+//post session information
 app.post('/signin', function(req, res) {
     req.session.username = req.body.name;
-    res.redirect('/');
+    res.status(200).json('ok');
 });
 
 //displays our app page
-app.get('/home/:email', function(req, res) {
-    //console.log(req.session);
-    //console.log(req.params.email);
-    //sess = req.session;
-    var user = req.params.email;
-    //console.log(req.session);
-    //req
-    //if ()
-    res.render('home');
+app.get('/home', authChecker, function(req, res) {
+    sess = req.session;
+    var user = sess.username;
+    console.log(user);
+    res.render('home', { user: user });
 });
 
-//logs user out of site, deleting them from the session, and returns to homepage
+//create new session route
+app.get('/session/:session', authChecker, function(req, res) {
+    var user = req.session.username;
+    console.log(user);
+    var session = req.params.session;
+    console.log(session, 'sessions')
+    var dbs = firebase.database().ref("session-id").child(session);
+    dbs.on('value', function(snapshot) {
+        console.log('got yere');
+        var page_sess = snapshot.val();
+        if (!_.includes(page_sess.user, user)) {
+            res.redirect('/home');
+        } else {
+            console.log(page_sess, 'active session');
+            res.render('home', { user: user, session: session, activeSession: JSON.stringify(page_sess) });
+        }
+    });
+});
+
+
 app.get('/logout', function(req, res) {
-    var name = req.user.username;
-    console.log("LOGGIN OUT " + name);
-    req.logout();
-    res.redirect('/');
-    req.session.notice = "You have successfully been logged out " + name + "!";
+    var sess = req.session;
+    var user = sess.username
+    console.log("LOGGIN OUT " + user);
+    req.session.destroy(function() {
+        res.redirect('/');
+    });
 });
 
 

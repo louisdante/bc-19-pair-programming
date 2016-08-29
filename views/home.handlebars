@@ -1,21 +1,6 @@
 <!-- views/home.handlebars -->
 {{#if user}}
-  <div class="jumbotron">
-    <h1>Codepair User App</h1>
-    <p>Below is your profile information!</p>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">choose the language you want to use</h3>
-    </div>
-    <div class="panel-body">
-      <p>Username: {{user.username}}</p>
-      <p>Avatar: <img src="{{user.avatar}}"/></p>
-    </div>
-  </div>
-
-{{else}}
-   <nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
 
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,33 +21,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Code Pair</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li></li>
+            <li></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
               {{#if user}}
-                <p class="navbar-text">
+                <p class="navbar-text" data-user=" {{user}}" id="userId">
                   <strong>Hi,</strong>
-                  <img src="{{user.profilepics}}" width="20" height="20">
                   {{user}}
+                  <img src="{{user.profilepics}}" width="20" height="20">
                 </p>
                 </li>
                 </ul>
@@ -78,30 +51,98 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-  <div class="jumbotron">
-    <h1>Welcome to codepair</h1>
-    <p>Sign in and start coding!</p>
-    <p>
-      <a href="/signin" class="btn btn-primary btn-lg" role="button">
-        <span class="glyphicon glyphicon-user"></span>
-        Sign in!
-      </a>
-    </p>
+  <div class="jumbotron" style="margin-top:40px; padding: 20px; height: 300px">
+    <h1>Codepair User App</h1>
+    <p>Begin below</p>
   </div>
-  <div class="container">
-    <h1> Chat Area</h1>
+  {{#if session}}
+  <div class="panel panel-default col-md-8">
+    <div class="panel-heading">
+        <h2 id="session_id" data-user="{{session}}">Session: {{session}}</h2>
+        <h3 class="panel-title"><b>List of active users</b></h3>
+        <p id="username" data-user="{{user}}"> Users: {{user}}</p>
+    </div>
+   
+  </div>
+    <div class="panel-body col-md-4">
+      <div class="form-inline">
+          <form id="" method="post" >
+        <input  type="text" class="form-control" name ="guest_usrname" placeholder="Invite user(s) to session">
+        <!--<input id="sendChatBtn" type="submit" value="Invite" class="btn btn-primary btn-sm">-->
+        <button type="submit" id="sendChatBtn" name="submit-btn" class="btn btn-primary btn-sm">Invite</button>
+        </form>
+  </div>
+    </div>
+  {{else}}
+  <div class="panel panel-default col-md-9">
+    <div class="panel-heading">
+      <h3 class="panel-title">Create a session below</h3>
+    </div>
+    <div class="panel-body col-md-9">
+      <div class="form-inline">
+          <form id="session" method="post" >
+        <input type="hidden" class="form-control" name ="user_name" value= "{{ user }}">
+        <input type="text" class="form-control" name ="session_name" placeholder="Eg: javascript">
+        <input type="submit" value="create session" class="btn btn-primary btn-sm">
+        </form>
+  </div>
+    </div>
+  </div>
  
-    <div class="panel panel-default col-md-4">
+    {{/if}}
+  <div class="container">
+    <div class="row">
+        <div class="col-md-8">
+        <form class="form">
+          <div class="form-group col-md-6">
+            <label for="mode" class="control-label">Language Mode:</label>
+            <select id="language" class="form-control">
+              <option value="ruby">Ruby</option>
+              <option value="css">CSS</option>
+              <option value="javascript"  selected="selected"  >JavaScript</option>
+              <option value="java">Java</option>
+              <option value="PHP">PHP</option>
+              <option value="python">Python</option>
+              <option value="html">HTML</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="mode" class="control-label">Theme:</label>
+            <select id="theme" class="form-control">
+              <option value="textmate">Textmate</option>
+              <option value="clouds">Clouds</option>
+              <option value="eclipse">Eclipse</option>
+              <option value="terminal">Terminal</option>
+              <option value="github">Github</option>
+              <option value="monokai">Monokai</option>
+              <option value="chaos">Chaos</option>
+              <option value="iplastic">iPlastic</option>
+              <option value="cobalt" selected="selected">Cobalt</option>
+              <option value="dawn">Dawn</option>
+              <option value="dreamweaver">Dreamweaver</option>
+            </select>
+          </div>
+        </form>
+        <div>
+         <div id="editor" class="col-sm-12" style="height: 300px;">
+        </div>
+    </div>
+       </div> 
+    <div class="col-md-4">
+        <h1> Chat Area</h1>
+         <!--<h1> Chat Area</h1>-->
+<div class="panel panel-default">
         <div class="panel-body"></div>
         <div class="panel-footer">
  
             <form role="form">
                 <div class="form-group">
-                    <label for="comments">Please enter your comments here</label>
-                    <input class="form-control" id="comments" name="comments">
+                    <label for="comments"></label>
+                    <div id="messageDiv"></div>
+                    <input class="form-control" id="messageInput" name="comments" placeholder="enter your messages here">
                 </div>
  
-                <button type="submit" id="submit-btn" name="submit-btn"
+                <button type="submit" id="chat_submit-btn" name="submit-btn"
                     class="btn btn-primary">Send Comments</button>
  
                 <button type="reset" class="btn btn-default">Clear Comments</button>
@@ -109,74 +150,137 @@
  
         </div>
     </div>
+    </div>
 </div>
-<script>
-    //var fireBase = new Firebase("https://pair-programming-cea9c.firebaseio.com/");
-    //      var config = {
-    //             apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
-    //             authDomain: "pair-programming-cea9c.firebaseapp.com",
-    //             databaseURL: "https://pair-programming-cea9c.firebaseio.com",
-    //             storageBucket: "pair-programming-cea9c.appspot.com",
-    //         };
-    //     firebase.initializeApp(config);
-    //     app = firebase.database().ref();
-    //     fb = app.child('chats')
-    //     $("#submit-btn").bind("click", function() {
-        
-    //     return false;
-    // });   
-    // $("#submit-btn").bind("click", function(event) {
-     
-    //     event.preventDefault();
-    //     event.stopPropagation();
-    // });
-    // $("#submit-btn").bind("click", function() {
-    //     var comment = $("#comments");
-    //     var comment_val = $.trim(comment.val());
-     
-    //     return false;
-    // });
-    // $("#submit-btn").bind("click", function() {
-    // var comment = $("#comments");
-    // var commentValue = $.trim(comment.val());
- 
-    // fireBaseRef.push({comment: commentValue}, function(error) {
-    //         if (error !== null) {
-    //             alert('Unable to push comments to Firebase!');
-    //         }
-    //     });
-    
-    // return false;
-    // });
-    // $("#submit-btn").bind("click", function() {
-    // var comment = $("#comments");
-    // var commentValue = $.trim(comment.val());
- 
-    // if (commentValue.length === 0) {
-    //     alert('Comments are required to continue!');
-    // } else {
-    //         _fireBaseRef.push({comment: commentValue}, function(error) {
-    //             if (error !== null) {
-    //                 alert('Unable to push comments to Firebase!');
-    //             }
-    //         });
-    
-    //         comment.val("");
-    //     }
- 
-    // return false;
-    // });
-    // fireBaseRef.on('child_added', function(snapshot) {
-    //         var uniqName = snapshot.name();
-    //         var comment = snapshot.val().comment;
-    //         var commentsContainer = $('#comments-container');
- 
-    //         $('<div/>', {class: 'comment-container'})
-    //             .html('<span class="label label-default">Comment ' 
-    //                 + uniqName + '</span>' + comment).appendTo(commentsContainer);
- 
-    //         commentsContainer.scrollTop(commentsContainer.prop('scrollHeight'));
-    // });
-</script>
+{{else}}
+    <!DOCTYPE html>
+<html class="no-js">
 
+<head>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- Fonts -->
+    <!-- Lato -->
+    
+</head>
+
+<body id="body">
+
+    <div id="preloader">
+        <div class="book">
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+            <div class="book__page"></div>
+        </div>
+    </div>
+
+    <!-- 
+	    Header start
+	    ==================== -->
+    <div class="navbar-default navbar-fixed-top" id="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                </button>
+                <a class="navbar-brand" href="#">
+                    <img class="logo-1" src="images/logo.png" alt="LOGO">
+                    <img class="logo-2" src="images/logo-2.png" alt="LOGO">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <nav class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-right" id="top-nav">
+                    <li class="current"><a href="#body">Home</a></li>
+                    <li><a href="/signin">Signin/ Signup</a></li>
+                </ul>
+            </nav>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+
+    <section id="hero-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="block">
+                        <h1 class="wow fadeInDown">Welcome to Code-Buddies</h1>
+                        <p class="wow fadeInDown" data-wow-delay="0.3s">Code buddies is a site that connects software developers allowing for pair programming and real time chat</p>
+                        <div class="wow fadeInDown" data-wow-delay="0.3s">
+                            <a class="btn btn-default btn-home" href="#about" role="button">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 wow zoomIn">
+                    <div class="block">
+                        <h1 class="wow fadeInDown">Count Down To Launch</h1>
+                        <div class="counter text-center">
+                            <ul id="countdown_dashboard">
+                                <li>
+                                    <div class="dash days_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Days</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dash hours_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Hours</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dash minutes_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Minutes</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dash seconds_dash">
+                                        <div class="digit">0</div>
+                                        <div class="digit">0</div>
+                                        <span class="dash_title">Seconds</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .row close -->
+        </div>
+        <!-- .container close -->
+    </section>
+    <!-- header close -->
+    <!-- #call-to-action close -->
+
+
+
+    <section clas="wow fadeInUp">
+        <div class="map-wrapper">
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="block">
+                        <p>Copyright &copy; <a href="#">code-buddies</a>| All right reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>
+</script>
 {{/if}}
