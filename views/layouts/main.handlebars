@@ -203,7 +203,7 @@ $("#sendChatBtn").click(function(e) {
             '<i class="">done_all</i></p>')
     });
 
-    $("#chat_submit-btn").click(function(e) {
+    $("#chat_submit-btn").on('submit', function(e) {
         e.preventDefault();
         sendToFirebase();
     });
