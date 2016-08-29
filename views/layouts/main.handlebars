@@ -155,6 +155,8 @@ $("#session").on('submit', function(e) {
         }
     });
 });
+
+//handles invite of another user...
 $("#sendChatBtn").click(function(e) {
     e.preventDefault();
     var sessionId = $('#session_id').data('user');
@@ -169,58 +171,64 @@ $("#sendChatBtn").click(function(e) {
     ref.child(sessionId).update(activeSession);
 });
 
-$('#messageInput').keypress(function(e) {
-    if (e.keyCode == 13) {
-        var name = $('#username').data('user');
-        var text = $('#messageInput').val();
-        ref.push({ name: name, text: text });
-        // messageRef.child('currentMessage');
-        $('#messageInput').val();
-    }
-    ref.on('child_added', function(snapshot) {
-        var message = snapshot.val();
-        console.log(message);
-        document.getElementById('messageDiv').innerHTML += message.name + '--' + message.text + '<br/>';
+// $('#messageInput').keypress(function(e) {
+//     if (e.keyCode == 13) {
+//         var name = $('#username').data('user');
+//         var text = $('#messageInput').val();
+//         ref.push({ name: name, text: text });
+//         // messageRef.child('currentMessage');
+//         $('#messageInput').val();
+//     }
+//     ref.on('child_added', function(snapshot) {
+//         var message = snapshot.val();
+//         console.log(message);
+//         document.getElementById('messageDiv').innerHTML += message.name + '--' + message.text + '<br/>';
 
-    });
-});
+//     });
+// });
 
 // new set of code to be used.....
-function chatInit(session) {
+ var username = $("input[name='user_name']").val();
+ var sess_Id = $('#session_id').data('user');
+  function chatInit(sess_id) {
+      //console.log(sess_id);
+    url = "session/"+sess_id+"messages/"
+    
+    var fire = new Firebase('https://pair-programming-cea9c.firebaseio.com/session/'+sess_id);
 
     fire.child("/messages").on('child_added', function(child, prev) {
         console.log(child.val())
         d = child.val()
-        $("#messagesContainer").append('<p class="animated bounceIn"><b>' + d.username + '</b>: ' + d.text + '' +
+        $("#messageDiv").append('<p class="animated bounceIn"><b>' + d.username + '</b>: ' + d.text + '' +
             '<i class="">done_all</i></p>')
     });
 
-    $("#sendChatBtn").click(function() {
+    $("#chat_submit-btn").click(function(e) {
+        e.preventDefault();
         sendToFirebase();
     });
 
     $('#messageInput').keypress(function(event) {
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') {
-            sendToFirebase()
+            sendToFirebase();
         }
     });
 
     function sendToFirebase() {
         text = $("#messageInput").val();
         if (text.trim()) {
-            ref.push({ username: username, text: text })
-            $("#messageInput").val("")
+            fire.push({ username: username, text: text })
+            $("#messageInput").val("");
         } else {
-            alert("Please type something!!")
+            alert("Please type something!!");
         }
     }
 }
-
-
-// var editor = ace.edit("editor");
-// editor.setTheme("ace/theme/monokai");
-// editor.getSession().setMode("ace/mode/javascript");
+    sess_id = $("#chatDiv").attr("session-id");
+        if (sess_id) {
+            chatInit(sess_id);
+    }
 
 //init realtime database
 var dbpad = firebase.database();
