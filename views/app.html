@@ -1,0 +1,33 @@
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
+        authDomain: "pair-programming-cea9c.firebaseapp.com",
+        databaseURL: "https://pair-programming-cea9c.firebaseio.com",
+        storageBucket: "pair-programming-cea9c.appspot.com",
+    };
+    firebase.initializeApp(config);
+
+    //init realtime database
+    var db = firebase.database();
+    var ref = db.ref("session-id");
+
+    //database obj
+    function writeNewPost(uid, username, picture, title, body) {
+        // A post entry.
+        var postData = {
+            author: 'username',
+            uid: 'uid',
+            body: 'body',
+            title: 'title',
+            starCount: 0,
+            authorPic: 'picture'
+        };
+
+        // Get a kery for a new Post.
+        var databaseRef = ref.child("sessions");
+        databaseRef.set(postData);
+    }
+    writeNewPost();
+</script>

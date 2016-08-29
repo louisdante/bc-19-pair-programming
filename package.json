@@ -18,7 +18,8 @@
   "homepage": "https://github.com/louisdante/codepair#readme",
   "dependencies": {
     "bcryptjs": "*",
-    "body-parser": "*",
+    "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
     "cookie-parser": "*",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
@@ -26,6 +27,7 @@
     "express-session": "*",
     "firebase": "*",
     "jsonwebtoken": "^7.1.9",
+    "lodash": "^4.15.0",
     "method-override": "^2.3.6",
     "morgan": "*",
     "passport": "*",
@@ -34,6 +36,7 @@
     "passport-http": "*",
     "passport-local": "*",
     "passport-twitter": "*",
+    "path": "^0.12.7",
     "q": "*"
   }
 }
