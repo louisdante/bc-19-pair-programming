@@ -12,10 +12,7 @@ var express = require('express'),
 
 //init firebase
 var config = {
-    apiKey: "AIzaSyCfXrpBKVGKKFIZ8MOnreNtdtLrMtHGcII",
-    authDomain: "pair-programming-cea9c.firebaseapp.com",
-    databaseURL: "https://pair-programming-cea9c.firebaseio.com",
-    storageBucket: "pair-programming-cea9c.appspot.com",
+
 };
 
 //init firebase
